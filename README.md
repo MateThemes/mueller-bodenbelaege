@@ -1,36 +1,96 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Müller Bodenbeläge Website
+
+Modern, responsive website for Müller Bodenbeläge built with Next.js 14, TypeScript, and Tailwind CSS.
+
+## Features
+
+- 🎨 Modern, clean design with dark mode support
+- 📱 Fully responsive layout with mobile-first approach
+- ⚡ Fast page loads with Next.js App Router
+- 🔍 SEO optimized
+- 🌙 Dark/Light mode with system preference detection
+- 🎭 Smooth animations and transitions
+- 🔤 Custom typography with Inter and Playfair Display fonts
+- 🛠️ Built with modern technologies and best practices
+
+## Tech Stack
+
+- **Framework:** [Next.js 14](https://nextjs.org/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Icons:** [Lucide Icons](https://lucide.dev/)
+- **Fonts:** 
+  - [Inter](https://fonts.google.com/specimen/Inter) (Body)
+  - [Playfair Display](https://fonts.google.com/specimen/Playfair+Display) (Headings)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18.17 or later
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/mueller-bodenbelaege.git
+   cd mueller-bodenbelaege
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Build
+
+To create a production build:
 
 ```bash
-npm run dev
+npm run build
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+├── public/          # Static files
+├── src/
+│   ├── app/         # App router pages and layouts
+│   ├── components/  # Reusable components
+│   │   ├── layout/  # Layout components (header, footer)
+│   │   └── ui/      # UI components
+│   ├── lib/         # Utility functions and configurations
+│   ├── providers/   # Context providers
+│   └── styles/      # Global styles and Tailwind config
+└── package.json     # Project dependencies and scripts
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Development Guidelines
 
-## Learn More
+- Follow TypeScript best practices and maintain type safety
+- Use Tailwind CSS for styling following the utility-first approach
+- Keep components small and focused on a single responsibility
+- Maintain consistent code formatting with Prettier
+- Follow the Next.js App Router conventions for routing and layouts
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+This project is proprietary and confidential. Unauthorized copying, modification, distribution, or use of this project, via any medium, is strictly prohibited.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Contact
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+For any inquiries, please contact [contact@mueller-bodenbelaege.ch](mailto:contact@mueller-bodenbelaege.ch)
