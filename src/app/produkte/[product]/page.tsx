@@ -66,12 +66,9 @@ const products = {
 
 type ProductId = keyof typeof products
 
-type PageProps = {
-  params: { product: ProductId }
-}
-
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const product = products[params.product]
+export async function generateMetadata({ params }: { params: { product: string } }): Promise<Metadata> {
+  const productId = params.product as ProductId
+  const product = products[productId]
   
   if (!product) {
     notFound()
@@ -83,8 +80,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export default function ProductPage({ params }: PageProps) {
-  const product = products[params.product]
+export default async function ProductPage({ params }: { params: { product: string } }) {
+  const productId = params.product as ProductId
+  const product = products[productId]
 
   if (!product) {
     notFound()
@@ -109,8 +107,8 @@ export default function ProductPage({ params }: PageProps) {
   )
 }
 
-export function generateStaticParams(): { product: ProductId }[] {
+export function generateStaticParams() {
   return Object.keys(products).map((product) => ({
-    product: product as ProductId,
+    product,
   }))
 }
