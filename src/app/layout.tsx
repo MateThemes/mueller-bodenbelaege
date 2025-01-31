@@ -1,6 +1,6 @@
+import './globals.css'
 import type { Metadata } from 'next'
 import { Inter, Playfair_Display } from 'next/font/google'
-import './globals.css'
 import { ThemeProvider } from '@/providers/theme-provider'
 import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
@@ -25,18 +25,15 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Check if the current page is an error page
-  const isErrorPage = children?.toString().includes('Error') || children?.toString().includes('NotFound')
-
   return (
     <html lang="de" suppressHydrationWarning className={`${inter.variable} ${playfair.variable}`}>
       <body className="bg-white dark:bg-gray-950 font-sans">
         <ThemeProvider>
-          {!isErrorPage && <Header />}
-          <main className={`${!isErrorPage ? 'pt-6 mb-16' : ''}`}>
+          <Header />
+          <main className="min-h-screen pt-24">
             {children}
           </main>
-          {!isErrorPage && <Footer />}
+          <Footer />
         </ThemeProvider>
       </body>
     </html>

@@ -57,6 +57,11 @@ const config: Config = {
           DEFAULT: "hsl(var(--secondary))",
           foreground: "hsl(var(--secondary-foreground))",
         },
+        brand: {
+          light: '#FB923C', // orange-400
+          DEFAULT: '#F97316', // orange-500
+          dark: '#EA580C', // orange-600
+        },
         wood: {
           light: '#D4B59E',
           DEFAULT: '#A67C52',

@@ -1,152 +1,337 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Menu, X, Phone } from 'lucide-react'
-import { ThemeToggle } from '../theme-toggle'
+import { usePathname } from 'next/navigation'
+import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { Dialog, Transition } from '@headlessui/react'
 
-const navigation = [
-  { name: 'Startseite', href: '/' },
-  { name: 'Leistungen', href: '/leistungen' },
-  { name: 'Projekte', href: '/projekte' },
-  { name: 'Über uns', href: '/ueber-uns' },
-  { name: 'Kontakt', href: '/kontakt' },
+const services = [
+  {
+    name: 'Parkett schleifen',
+    description: 'Professionelle Aufarbeitung Ihrer Parkettböden',
+    href: '/leistungen/parkett-schleifen',
+  },
+  {
+    name: 'Verlegen',
+    description: 'Fachgerechte Verlegung aller Bodenbeläge',
+    href: '/leistungen/verlegen',
+  },
+  {
+    name: 'Grundreinigung',
+    description: 'Gründliche Reinigung Ihrer Bodenbeläge',
+    href: '/leistungen/grundreinigung',
+  },
+  {
+    name: 'Treppen renovieren',
+    description: 'Professionelle Treppenrenovierung',
+    href: '/leistungen/treppen-renovieren',
+  },
+  {
+    name: 'Reparaturen',
+    description: 'Schnelle & fachmännische Reparaturen',
+    href: '/leistungen/reparaturen',
+  },
 ]
 
-export function Header() {
+export const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+  const [isServicesOpen, setIsServicesOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false)
+  const pathname = usePathname()
 
-  return (
-    <>
-      <header className="bg-white dark:bg-gray-950">
-        <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Top">
-          <div className="flex h-24 items-center justify-between py-4">
-            <div className="flex-shrink-0 w-[180px]">
-              <Link href="/" className="block">
-                <Image
-                  src="/img/logo/logo.svg"
-                  alt="Müller Bodenbeläge Logo"
-                  width={180}
-                  height={50}
-                  className="w-[180px] h-auto block dark:hidden"
-                  priority
-                />
-                <Image
-                  src="/img/logo/logo-white.svg"
-                  alt="Müller Bodenbeläge Logo"
-                  width={180}
-                  height={50}
-                  className="w-[180px] h-auto hidden dark:block"
-                  priority
-                />
-              </Link>
-            </div>
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
-            {/* Desktop Navigation */}
-            <div className="hidden xl:flex xl:flex-1 xl:justify-center">
-              <nav className="flex items-center space-x-8">
-                {navigation.map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    className="text-sm font-medium tracking-wide text-gray-700 hover:text-wood-dark dark:text-gray-200 dark:hover:text-wood-light transition-colors"
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </nav>
-            </div>
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleScroll = () => {
+        setIsScrolled(window.scrollY > 0)
+      }
+      window.addEventListener('scroll', handleScroll)
+      handleScroll()
+      return () => window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
-            {/* Theme toggle and mobile menu button */}
-            <div className="flex items-center w-[180px] justify-end space-x-4">
-              <a 
-                href="tel:+41715112233" 
-                className="hidden xl:flex items-center space-x-2 text-sm font-medium tracking-wide text-gray-700 hover:text-wood-dark dark:text-gray-200 dark:hover:text-wood-light transition-colors"
-              >
-                <Phone className="h-4 w-4" />
-                <span>071 511 22 33</span>
-              </a>
-              <ThemeToggle />
-              {/* Mobile menu button */}
-              <div className="flex xl:hidden">
-                <button
-                  type="button"
-                  className="ml-4 inline-flex items-center justify-center rounded-md p-2 text-gray-600 hover:bg-gray-100 hover:text-wood-dark dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-wood-light focus:outline-none"
-                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                >
-                  <span className="sr-only">Open main menu</span>
-                  {isMobileMenuOpen ? (
-                    <X className="block h-6 w-6" aria-hidden="true" />
-                  ) : (
-                    <Menu className="block h-6 w-6" aria-hidden="true" />
-                  )}
-                </button>
-              </div>
-            </div>
-          </div>
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+    setIsMobileServicesOpen(false)
+  }, [pathname])
 
-          {/* Mobile menu */}
-          <div 
-            className={`fixed inset-0 z-50 transform transition-all duration-300 ease-in-out xl:hidden ${
-              isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
-            }`}
-          >
-            {/* Backdrop */}
-            <div 
-              className={`fixed inset-0 bg-black/30 backdrop-blur-sm transition-opacity duration-300 ${
-                isMobileMenuOpen ? 'opacity-100' : 'opacity-0'
-              }`}
-              onClick={() => setIsMobileMenuOpen(false)}
-            />
-            
-            {/* Menu content */}
-            <div className={`absolute right-0 h-full w-[300px] bg-white dark:bg-gray-900 shadow-xl`}>
-              <div className="flex flex-col h-full">
-                {/* Header */}
-                <div className="flex items-center justify-between p-4 border-b dark:border-gray-800">
-                  <span className="text-lg font-medium text-gray-900 dark:text-white">Menu</span>
-                  <button
-                    type="button"
-                    className="rounded-lg p-2.5 text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 focus:outline-none"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    <span className="sr-only">Close menu</span>
-                    <X className="h-6 w-6" aria-hidden="true" />
-                  </button>
-                </div>
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = 'unset'
+    }
+  }, [isMobileMenuOpen])
 
-                {/* Navigation links */}
-                <nav className="flex-1 overflow-y-auto p-4">
-                  <div className="space-y-2">
-                    {navigation.map((item) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className="block w-full rounded-lg px-4 py-3 text-base font-medium tracking-wide text-gray-900 hover:bg-gray-100 dark:text-white dark:hover:bg-gray-800 transition-colors"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                </nav>
-
-                {/* Footer with contact info */}
-                <div className="border-t dark:border-gray-800 p-4">
-                  <a 
-                    href="tel:+41715112233"
-                    className="flex items-center space-x-2 text-sm font-medium tracking-wide text-gray-700 hover:text-wood-dark dark:text-gray-200 dark:hover:text-wood-light transition-colors"
-                  >
-                    <Phone className="h-4 w-4" />
-                    <span>071 511 22 33</span>
-                  </a>
-                </div>
-              </div>
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!isMounted) {
+    return (
+      <header className="fixed top-0 left-0 right-0 z-50 h-20">
+        <nav className="container mx-auto xl:px-8">
+          <div className="flex items-center justify-between h-24">
+            <div className="flex-shrink-0">
+              <div className="w-[220px] h-12" />
             </div>
           </div>
         </nav>
       </header>
-    </>
+    )
+  }
+
+  return (
+    <header
+      className={`fixed w-full z-50 transition-all duration-300 ${
+        isScrolled || isMobileMenuOpen ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md' : 'bg-transparent'
+      }`}
+    >
+      <nav className="container mx-auto xl:px-8">
+        <div className="flex items-center justify-between h-24">
+          {/* Logo */}
+          <Link href="/" className="flex-shrink-0">
+            <Image
+              src="/img/logo/mueller-bodenbelaege.svg"
+              alt="Müller Bodenbeläge Logo"
+              width={220}
+              height={61}
+              className="w-[220px] h-[61px] dark:invert"
+              priority
+            />
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden xl:flex xl:items-center xl:justify-center flex-1 xl:px-4">
+            <div className="flex items-center space-x-8">
+              <Link
+                href="/"
+                className={`text-base font-medium transition-colors ${
+                  pathname === '/'
+                    ? 'text-brand'
+                    : 'text-gray-700 hover:text-brand dark:text-gray-200 dark:hover:text-brand-light'
+                }`}
+              >
+                Home
+              </Link>
+              <div className="relative group">
+                <button
+                  className="flex items-center gap-1 px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                  onMouseEnter={() => setIsServicesOpen(true)}
+                >
+                  <span className={`text-base font-medium transition-colors ${
+                    pathname === '/leistungen'
+                      ? 'text-brand'
+                      : 'text-gray-700 hover:text-brand dark:text-gray-200 dark:hover:text-brand-light'
+                  }`}>
+                    Leistungen
+                  </span>
+                  <ChevronDownIcon className="w-4 h-4" />
+                </button>
+                <div className="absolute -bottom-2 left-0 right-0 h-2 bg-transparent" />
+                <div
+                  className={`absolute left-0 w-96 p-2 mt-2 origin-top-left bg-white dark:bg-gray-900 rounded-lg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none transition transform
+                    ${isServicesOpen ? 'opacity-100 scale-100' : 'opacity-0 scale-95 pointer-events-none'}
+                  `}
+                  onMouseEnter={() => setIsServicesOpen(true)}
+                  onMouseLeave={() => setIsServicesOpen(false)}
+                >
+                  <div className="relative grid gap-6 bg-white dark:bg-gray-900 px-6 py-8">
+                    {services.map((service) => (
+                      <Link
+                        key={service.name}
+                        href={service.href}
+                        onClick={() => setIsServicesOpen(false)}
+                        className="flex items-start rounded-lg p-3 transition duration-150 ease-in-out hover:bg-gray-50 dark:hover:bg-gray-800"
+                      >
+                        <div>
+                          <p className="text-base font-medium text-gray-900 dark:text-white">
+                            {service.name}
+                          </p>
+                          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                            {service.description}
+                          </p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <Link
+                href="/uber-uns"
+                className={`text-base font-medium transition-colors ${
+                  pathname === '/uber-uns'
+                    ? 'text-brand'
+                    : 'text-gray-700 hover:text-brand dark:text-gray-200 dark:hover:text-brand-light'
+                }`}
+              >
+                Über uns
+              </Link>
+              <Link
+                href="/kontakt"
+                className={`text-base font-medium transition-colors ${
+                  pathname === '/kontakt'
+                    ? 'text-brand'
+                    : 'text-gray-700 hover:text-brand dark:text-gray-200 dark:hover:text-brand-light'
+                }`}
+              >
+                Kontakt
+              </Link>
+            </div>
+          </div>
+
+          {/* Desktop CTA Button */}
+          <div className="hidden xl:flex xl:items-center">
+            <Link
+              href="/kontakt"
+              className="inline-flex items-center justify-center rounded-full border-2 border-brand bg-transparent px-6 py-3 text-base font-medium text-brand transition-colors hover:bg-brand hover:text-white focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:border-brand-light dark:text-brand-light dark:hover:bg-brand-light dark:hover:text-gray-900"
+            >
+              Kostenlos beraten lassen
+            </Link>
+          </div>
+
+          {/* Mobile menu */}
+          <div className="xl:hidden">
+            <button
+              type="button"
+              className="inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-200"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <span className="sr-only">Open main menu</span>
+              <Bars3Icon className="h-6 w-6" aria-hidden="true" />
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* Mobile menu panel */}
+      <Transition.Root show={isMobileMenuOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-50 xl:hidden" onClose={setIsMobileMenuOpen}>
+          <Transition.Child
+            as={Fragment}
+            enter="transition-opacity ease-linear duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="transition-opacity ease-linear duration-300"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black/30 backdrop-blur-sm" />
+          </Transition.Child>
+
+          <div className="fixed inset-0">
+            <Transition.Child
+              as={Fragment}
+              enter="transform transition ease-in-out duration-300"
+              enterFrom="-translate-y-full"
+              enterTo="translate-y-0"
+              leave="transform transition ease-in-out duration-300"
+              leaveFrom="translate-y-0"
+              leaveTo="-translate-y-full"
+            >
+              <Dialog.Panel className="fixed inset-0 w-full bg-white dark:bg-gray-950">
+                {/* Header with close button */}
+                <div className="absolute top-0 right-0 p-4">
+                  <button
+                    type="button"
+                    className="relative z-10 rounded-md p-2.5 text-gray-900 dark:text-white bg-white dark:bg-gray-900 shadow-md"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    <span className="sr-only">Close menu</span>
+                    <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
+                </div>
+
+                {/* Scrollable navigation area */}
+                <div className="h-full flex flex-col">
+                  <div className="flex-1 overflow-y-auto px-6 py-20">
+                    <nav className="flex flex-col space-y-6">
+                      <Link
+                        href="/"
+                        className="text-2xl font-medium text-gray-900 hover:text-brand dark:text-white dark:hover:text-brand-light"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Home
+                      </Link>
+                      <div className="relative">
+                        <button
+                          className="flex w-full items-center justify-between text-2xl font-medium text-gray-900 dark:text-white"
+                          onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
+                        >
+                          <span>Leistungen</span>
+                          <ChevronDownIcon
+                            className={`ml-2 h-6 w-6 transition-transform duration-200 ${
+                              isMobileServicesOpen ? 'rotate-180' : ''
+                            }`}
+                            aria-hidden="true"
+                          />
+                        </button>
+
+                        <div
+                          className={`mt-4 transition-all duration-300 ease-in-out ${
+                            isMobileServicesOpen
+                              ? 'block opacity-100'
+                              : 'hidden opacity-0'
+                          }`}
+                        >
+                          <div className="space-y-4 pl-4">
+                            {services.map((service) => (
+                              <Link
+                                key={service.name}
+                                href={service.href}
+                                className="block text-xl text-gray-700 hover:text-brand dark:text-gray-200 dark:hover:text-brand-light"
+                                onClick={() => {
+                                  setIsMobileServicesOpen(false)
+                                  setIsMobileMenuOpen(false)
+                                }}
+                              >
+                                {service.name}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <Link
+                        href="/uber-uns"
+                        className="text-2xl font-medium text-gray-900 hover:text-brand dark:text-white dark:hover:text-brand-light"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Über uns
+                      </Link>
+                      <Link
+                        href="/kontakt"
+                        className="text-2xl font-medium text-gray-900 hover:text-brand dark:text-white dark:hover:text-brand-light"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Kontakt
+                      </Link>
+                    </nav>
+                  </div>
+
+                  {/* Fixed bottom section */}
+                  <div className="flex-shrink-0 border-t border-gray-200 dark:border-gray-800">
+                    <div className="px-6 py-8">
+                      <Link
+                        href="/kontakt"
+                        className="block w-full rounded-full border-2 border-brand bg-transparent px-8 py-4 text-center text-xl font-medium text-brand transition-colors hover:bg-brand hover:text-white dark:border-brand-light dark:text-brand-light dark:hover:bg-brand-light dark:hover:text-gray-900"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Kostenlos beraten lassen
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </Dialog.Panel>
+            </Transition.Child>
+          </div>
+        </Dialog>
+      </Transition.Root>
+    </header>
   )
 }
