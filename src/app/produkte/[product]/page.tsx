@@ -51,10 +51,17 @@ const products = {
     description: 'Moderne Optik mit praktischen Vorteilen',
     content: 'Designvinyl vereint die Optik hochwertiger Naturmaterialien mit den praktischen Vorteilen eines modernen Bodenbelags. Robust, pflegeleicht und in vielen Designs erhältlich.',
   },
+} as const
+
+type Props = {
+  params: {
+    product: keyof typeof products
+  }
+  searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default async function ProductPage({ params }: { params: { product: string } }) {
-  const product = products[params.product as keyof typeof products]
+export default function ProductPage({ params, searchParams }: Props) {
+  const product = products[params.product]
 
   if (!product) {
     notFound()
