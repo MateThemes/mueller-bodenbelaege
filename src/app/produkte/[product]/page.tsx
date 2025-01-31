@@ -1,6 +1,11 @@
 import { Metadata } from 'next'
 import { notFound } from "next/navigation"
 
+type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = {
+  params: T
+  searchParams: { [key: string]: string | string[] | undefined }
+}
+
 const products = {
   'massivholzparkett': {
     id: 'massivholzparkett',
@@ -66,7 +71,7 @@ const products = {
 
 type ProductId = keyof typeof products
 
-export async function generateMetadata({ params }: { params: { product: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: PageProps<{ product: string }>): Promise<Metadata> {
   const productId = params.product as ProductId
   const product = products[productId]
   
@@ -80,7 +85,7 @@ export async function generateMetadata({ params }: { params: { product: string }
   }
 }
 
-export default async function ProductPage({ params }: { params: { product: string } }) {
+export default async function ProductPage({ params }: PageProps<{ product: string }>) {
   const productId = params.product as ProductId
   const product = products[productId]
 
