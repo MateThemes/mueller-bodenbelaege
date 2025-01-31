@@ -63,18 +63,7 @@ const products = {
   },
 } as const
 
-interface Product {
-  id: string
-  title: string
-  description: string
-  content: string
-}
-
-interface PageProps {
-  params: { product: keyof typeof products }
-}
-
-export default async function ProductPage({ params }: PageProps) {
+export default async function ProductPage({ params }: { params: { product: keyof typeof products } }) {
   const product = products[params.product]
 
   if (!product) {
