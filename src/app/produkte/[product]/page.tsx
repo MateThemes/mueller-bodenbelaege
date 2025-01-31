@@ -53,7 +53,7 @@ const products = {
   },
 }
 
-export default function ProductPage({ params }: { params: { product: string } }) {
+export default async function ProductPage({ params }: { params: { product: string } }) {
   const product = products[params.product as keyof typeof products]
 
   if (!product) {
