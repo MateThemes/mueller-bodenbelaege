@@ -57,10 +57,9 @@ type Props = {
   params: {
     product: keyof typeof products
   }
-  searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export default function ProductPage({ params, searchParams }: Props) {
+export default function ProductPage({ params }: Props) {
   const product = products[params.product]
 
   if (!product) {
