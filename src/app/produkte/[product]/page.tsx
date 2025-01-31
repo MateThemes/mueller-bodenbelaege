@@ -1,3 +1,4 @@
+import { Metadata } from 'next'
 import { notFound } from "next/navigation"
 
 const products = {
@@ -63,7 +64,26 @@ const products = {
   },
 } as const
 
-export default async function ProductPage({ params }: { params: { product: keyof typeof products } }) {
+type ProductId = keyof typeof products
+
+type PageProps = {
+  params: { product: ProductId }
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const product = products[params.product]
+  
+  if (!product) {
+    notFound()
+  }
+
+  return {
+    title: product.title,
+    description: product.description,
+  }
+}
+
+export default function ProductPage({ params }: PageProps) {
   const product = products[params.product]
 
   if (!product) {
@@ -89,8 +109,8 @@ export default async function ProductPage({ params }: { params: { product: keyof
   )
 }
 
-export function generateStaticParams() {
+export function generateStaticParams(): { product: ProductId }[] {
   return Object.keys(products).map((product) => ({
-    product,
+    product: product as ProductId,
   }))
 }
