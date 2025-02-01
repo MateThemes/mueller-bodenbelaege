@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, Fragment } from 'react'
+import { useState, useEffect, useRef, Fragment } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
@@ -117,6 +117,8 @@ export const Header = () => {
   const [isMobileServicesOpen, setIsMobileServicesOpen] = useState(false)
   const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false)
   const pathname = usePathname()
+  const productsRef = useRef<HTMLDivElement>(null)
+  const servicesRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setIsMounted(true)
@@ -146,6 +148,22 @@ export const Header = () => {
       document.body.style.overflow = 'unset'
     }
   }, [isMobileMenuOpen])
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (productsRef.current && !productsRef.current.contains(event.target as Node)) {
+        setIsProductsOpen(false)
+      }
+      if (servicesRef.current && !servicesRef.current.contains(event.target as Node)) {
+        setIsServicesOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   // Prevent hydration mismatch by not rendering until mounted
   if (!isMounted) {
@@ -196,123 +214,151 @@ export const Header = () => {
                 Home
               </Link>
 
-              <div className="relative group">
+              <div className="relative" ref={productsRef}>
                 <button
                   className="flex items-center gap-1 px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-                  onClick={() => setIsProductsOpen(!isProductsOpen)}
+                  onClick={() => {
+                    setIsProductsOpen(!isProductsOpen)
+                    setIsServicesOpen(false)
+                  }}
+                  aria-expanded={isProductsOpen}
                 >
                   <span>Produkte</span>
-                  <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
+                  <ChevronDownIcon
+                    className={`h-5 w-5 transform transition-transform duration-200 ${
+                      isProductsOpen ? 'rotate-180' : ''
+                    }`}
+                    aria-hidden="true"
+                  />
                 </button>
 
                 {/* Mega menu overlay */}
-                <div className="absolute left-1/2 z-10 mt-2 w-screen max-w-4xl -translate-x-1/2 transform px-2 opacity-0 translate-y-2 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-200">
-                  <div className="mx-auto overflow-hidden rounded-2xl bg-white dark:bg-gray-900 shadow-xl ring-1 ring-black/5 dark:ring-white/5">
-                    <div className="relative">
-                      {/* Header */}
-                      <div className="bg-gray-50 dark:bg-gray-800/50 px-5 py-3 sm:px-6">
-                        <h3 className="text-base font-semibold leading-6 text-gray-900 dark:text-white">
-                          Unsere Bodenbeläge
-                        </h3>
-                      </div>
-                      {/* Grid */}
-                      <div className="relative grid grid-cols-4 gap-x-6 gap-y-4 p-6">
-                        {Object.entries(products).map(([key, category]) => (
-                          <div key={key}>
-                            <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
-                              {category.name}
-                            </h3>
-                            <ul className="space-y-2">
-                              {category.items.map((item) => (
-                                <li key={item.name}>
-                                  <Link
-                                    href={item.href}
-                                    className="group/item block rounded-lg py-1 px-2 hover:bg-gray-50 dark:hover:bg-gray-800"
-                                  >
-                                    <p className="text-sm font-medium text-gray-900 dark:text-white group-hover/item:text-brand dark:group-hover/item:text-brand-light">
-                                      {item.name}
-                                    </p>
-                                  </Link>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                        ))}
-                      </div>
-                      {/* Footer */}
-                      <div className="bg-gray-50 dark:bg-gray-800/50 px-5 py-3 flex items-center justify-between">
-                        <Link
-                          href="/produkte"
-                          className="text-sm font-medium text-brand dark:text-brand-light hover:text-brand/80 dark:hover:text-brand-light/80"
-                        >
-                          Alle Produkte ansehen →
-                        </Link>
-                        <Link
-                          href="/kontakt"
-                          className="inline-flex items-center rounded-full border-2 border-brand bg-transparent px-4 py-1 text-sm font-medium text-brand transition-colors hover:bg-brand hover:text-white dark:border-brand-light dark:text-brand-light dark:hover:bg-brand-light dark:hover:text-gray-900"
-                        >
-                          Kontakt
-                        </Link>
+                {isProductsOpen && (
+                  <div className="absolute left-1/2 z-50 mt-2 w-screen max-w-4xl -translate-x-1/2 transform px-2">
+                    <div className="mx-auto overflow-hidden rounded-2xl bg-white dark:bg-gray-900 shadow-xl ring-1 ring-black/5 dark:ring-white/5">
+                      <div className="relative">
+                        {/* Header */}
+                        <div className="bg-gray-50 dark:bg-gray-800/50 px-5 py-3 sm:px-6">
+                          <h3 className="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+                            Unsere Bodenbeläge
+                          </h3>
+                        </div>
+                        {/* Grid */}
+                        <div className="relative grid grid-cols-4 gap-x-6 gap-y-4 p-6">
+                          {Object.entries(products).map(([key, category]) => (
+                            <div key={key}>
+                              <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">
+                                {category.name}
+                              </h3>
+                              <ul className="space-y-2">
+                                {category.items.map((item) => (
+                                  <li key={item.name}>
+                                    <Link
+                                      href={item.href}
+                                      className="group/item block rounded-lg py-1 px-2 hover:bg-gray-50 dark:hover:bg-gray-800"
+                                      onClick={() => setIsProductsOpen(false)}
+                                    >
+                                      <p className="text-sm font-medium text-gray-900 dark:text-white group-hover/item:text-brand dark:group-hover/item:text-brand-light">
+                                        {item.name}
+                                      </p>
+                                    </Link>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                          ))}
+                        </div>
+                        {/* Footer */}
+                        <div className="bg-gray-50 dark:bg-gray-800/50 px-5 py-3 flex items-center justify-between">
+                          <Link
+                            href="/produkte"
+                            className="text-sm font-medium text-brand dark:text-brand-light hover:text-brand/80 dark:hover:text-brand-light/80"
+                            onClick={() => setIsProductsOpen(false)}
+                          >
+                            Alle Produkte ansehen →
+                          </Link>
+                          <Link
+                            href="/kontakt"
+                            className="inline-flex items-center rounded-full border-2 border-brand bg-transparent px-4 py-1 text-sm font-medium text-brand transition-colors hover:bg-brand hover:text-white dark:border-brand-light dark:text-brand-light dark:hover:bg-brand-light dark:hover:text-gray-900"
+                            onClick={() => setIsProductsOpen(false)}
+                          >
+                            Kontakt
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
 
-              <div className="relative group">
+              <div className="relative" ref={servicesRef}>
                 <button
                   className="flex items-center gap-1 px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-                  onClick={() => setIsServicesOpen(!isServicesOpen)}
+                  onClick={() => {
+                    setIsServicesOpen(!isServicesOpen)
+                    setIsProductsOpen(false)
+                  }}
+                  aria-expanded={isServicesOpen}
                 >
                   <span>Leistungen</span>
-                  <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
+                  <ChevronDownIcon
+                    className={`h-5 w-5 transform transition-transform duration-200 ${
+                      isServicesOpen ? 'rotate-180' : ''
+                    }`}
+                    aria-hidden="true"
+                  />
                 </button>
 
                 {/* Mega menu overlay */}
-                <div className="absolute left-1/2 z-10 mt-2 w-screen max-w-2xl -translate-x-1/2 transform px-2 opacity-0 translate-y-2 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-200">
-                  <div className="mx-auto overflow-hidden rounded-2xl bg-white dark:bg-gray-900 shadow-xl ring-1 ring-black/5 dark:ring-white/5">
-                    <div className="relative">
-                      {/* Header */}
-                      <div className="bg-gray-50 dark:bg-gray-800/50 px-5 py-3 sm:px-6">
-                        <h3 className="text-base font-semibold leading-6 text-gray-900 dark:text-white">
-                          Unsere Leistungen
-                        </h3>
-                      </div>
-                      {/* Grid */}
-                      <div className="relative grid grid-cols-2 gap-x-6 gap-y-4 p-6">
-                        {services.map((service) => (
+                {isServicesOpen && (
+                  <div className="absolute left-1/2 z-50 mt-2 w-screen max-w-2xl -translate-x-1/2 transform px-2">
+                    <div className="mx-auto overflow-hidden rounded-2xl bg-white dark:bg-gray-900 shadow-xl ring-1 ring-black/5 dark:ring-white/5">
+                      <div className="relative">
+                        {/* Header */}
+                        <div className="bg-gray-50 dark:bg-gray-800/50 px-5 py-3 sm:px-6">
+                          <h3 className="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+                            Unsere Leistungen
+                          </h3>
+                        </div>
+                        {/* Grid */}
+                        <div className="relative grid grid-cols-2 gap-x-6 gap-y-4 p-6">
+                          {services.map((service) => (
+                            <Link
+                              key={service.name}
+                              href={service.href}
+                              className="group/item block rounded-lg p-3 hover:bg-gray-50 dark:hover:bg-gray-800"
+                              onClick={() => setIsServicesOpen(false)}
+                            >
+                              <p className="text-base font-medium text-gray-900 dark:text-white group-hover/item:text-brand dark:group-hover/item:text-brand-light">
+                                {service.name}
+                              </p>
+                              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                {service.description}
+                              </p>
+                            </Link>
+                          ))}
+                        </div>
+                        {/* Footer */}
+                        <div className="bg-gray-50 dark:bg-gray-800/50 px-5 py-3 flex items-center justify-between">
                           <Link
-                            key={service.name}
-                            href={service.href}
-                            className="group/item block rounded-lg p-3 hover:bg-gray-50 dark:hover:bg-gray-800"
+                            href="/leistungen"
+                            className="text-sm font-medium text-brand dark:text-brand-light hover:text-brand/80 dark:hover:text-brand-light/80"
+                            onClick={() => setIsServicesOpen(false)}
                           >
-                            <p className="text-base font-medium text-gray-900 dark:text-white group-hover/item:text-brand dark:group-hover/item:text-brand-light">
-                              {service.name}
-                            </p>
-                            <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                              {service.description}
-                            </p>
+                            Alle Leistungen ansehen →
                           </Link>
-                        ))}
-                      </div>
-                      {/* Footer */}
-                      <div className="bg-gray-50 dark:bg-gray-800/50 px-5 py-3 flex items-center justify-between">
-                        <Link
-                          href="/leistungen"
-                          className="text-sm font-medium text-brand dark:text-brand-light hover:text-brand/80 dark:hover:text-brand-light/80"
-                        >
-                          Alle Leistungen ansehen →
-                        </Link>
-                        <Link
-                          href="/kontakt"
-                          className="inline-flex items-center rounded-full border-2 border-brand bg-transparent px-4 py-1 text-sm font-medium text-brand transition-colors hover:bg-brand hover:text-white dark:border-brand-light dark:text-brand-light dark:hover:bg-brand-light dark:hover:text-gray-900"
-                        >
-                          Kontakt
-                        </Link>
+                          <Link
+                            href="/kontakt"
+                            className="inline-flex items-center rounded-full border-2 border-brand bg-transparent px-4 py-1 text-sm font-medium text-brand transition-colors hover:bg-brand hover:text-white dark:border-brand-light dark:text-brand-light dark:hover:bg-brand-light dark:hover:text-gray-900"
+                            onClick={() => setIsServicesOpen(false)}
+                          >
+                            Kontakt
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
 
               <Link
