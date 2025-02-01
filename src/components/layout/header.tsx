@@ -6,6 +6,7 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { ChevronDownIcon, Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Dialog, Transition } from '@headlessui/react'
+import { ThemeToggle } from '../theme-toggle'
 
 const services = [
   {
@@ -186,7 +187,7 @@ export const Header = () => {
         isScrolled || isMobileMenuOpen ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md' : 'bg-transparent'
       }`}
     >
-      <nav className="container mx-auto xl:px-8">
+      <nav className="container mx-auto px-4">
         <div className="flex items-center justify-between h-24">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
@@ -195,14 +196,14 @@ export const Header = () => {
               alt="Müller Bodenbeläge Logo"
               width={220}
               height={61}
-              className="w-[220px] h-[61px] dark:invert"
+              className="w-[220px] h-[61px] dark:brightness-0 dark:invert"
               priority
             />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:flex xl:items-center xl:justify-center flex-1 xl:px-4">
-            <div className="flex items-center space-x-8">
+          <div className="hidden xl:flex xl:items-center xl:flex-1">
+            <div className="flex items-center justify-center w-full space-x-6">
               <Link
                 href="/"
                 className={`text-base font-medium transition-colors ${
@@ -216,7 +217,7 @@ export const Header = () => {
 
               <div className="relative" ref={productsRef}>
                 <button
-                  className="flex items-center gap-1 px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                  className="flex items-center gap-1 text-base font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                   onClick={() => {
                     setIsProductsOpen(!isProductsOpen)
                     setIsServicesOpen(false)
@@ -293,7 +294,7 @@ export const Header = () => {
 
               <div className="relative" ref={servicesRef}>
                 <button
-                  className="flex items-center gap-1 px-3 py-2 text-base font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                  className="flex items-center gap-1 text-base font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                   onClick={() => {
                     setIsServicesOpen(!isServicesOpen)
                     setIsProductsOpen(false)
@@ -362,6 +363,28 @@ export const Header = () => {
               </div>
 
               <Link
+                href="/angebote"
+                className={`text-base font-medium transition-colors ${
+                  pathname === '/angebote'
+                    ? 'text-brand'
+                    : 'text-gray-700 hover:text-brand dark:text-gray-200 dark:hover:text-brand-light'
+                }`}
+              >
+                Angebote
+              </Link>
+
+              <Link
+                href="/galerie"
+                className={`text-base font-medium transition-colors ${
+                  pathname === '/galerie'
+                    ? 'text-brand'
+                    : 'text-gray-700 hover:text-brand dark:text-gray-200 dark:hover:text-brand-light'
+                }`}
+              >
+                Galerie
+              </Link>
+
+              <Link
                 href="/uber-uns"
                 className={`text-base font-medium transition-colors ${
                   pathname === '/uber-uns'
@@ -374,24 +397,26 @@ export const Header = () => {
             </div>
           </div>
 
-          {/* Desktop CTA Button */}
-          <div className="hidden xl:flex xl:items-center">
+          {/* Desktop CTA */}
+          <div className="hidden xl:flex xl:items-center xl:gap-4">
+            <ThemeToggle />
             <Link
               href="/kontakt"
-              className="inline-flex items-center justify-center rounded-full border-2 border-brand bg-transparent px-6 py-3 text-base font-medium text-brand transition-colors hover:bg-brand hover:text-white focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 dark:border-brand-light dark:text-brand-light dark:hover:bg-brand-light dark:hover:text-gray-900"
+              className="rounded-full border-2 border-brand bg-transparent px-8 py-4 text-base font-medium text-brand transition-colors hover:bg-brand hover:text-white dark:border-brand-light dark:text-brand-light dark:hover:bg-brand-light dark:hover:text-gray-900"
             >
               Kostenlos beraten lassen
             </Link>
           </div>
 
-          {/* Mobile menu */}
-          <div className="xl:hidden">
+          {/* Mobile menu button */}
+          <div className="flex xl:hidden items-center gap-4">
+            <ThemeToggle />
             <button
               type="button"
-              className="inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-200"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-200"
               onClick={() => setIsMobileMenuOpen(true)}
             >
-              <span className="sr-only">Open main menu</span>
+              <span className="sr-only">Menü öffnen</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
@@ -535,6 +560,22 @@ export const Header = () => {
                           </div>
                         </div>
                       </div>
+
+                      <Link
+                        href="/angebote"
+                        className="text-2xl font-medium text-gray-900 hover:text-brand dark:text-white dark:hover:text-brand-light"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Angebote
+                      </Link>
+
+                      <Link
+                        href="/galerie"
+                        className="text-2xl font-medium text-gray-900 hover:text-brand dark:text-white dark:hover:text-brand-light"
+                        onClick={() => setIsMobileMenuOpen(false)}
+                      >
+                        Galerie
+                      </Link>
 
                       <Link
                         href="/uber-uns"
