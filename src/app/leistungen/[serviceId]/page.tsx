@@ -66,7 +66,7 @@ export default async function Page(
   }
 
   return (
-    <main className="flex-auto" aria-labelledby="service-title" itemScope itemType="https://schema.org/Service">
+    <main className="flex-auto pb-16 sm:pb-24 lg:pb-32" aria-labelledby="service-title" itemScope itemType="https://schema.org/Service">
       {/* Hero section */}
       <section aria-label="Einführung" className="relative isolate overflow-hidden bg-gradient-to-b from-brand-light/20">
         <Container className="pt-24 pb-16 sm:pt-32 lg:pt-40">
