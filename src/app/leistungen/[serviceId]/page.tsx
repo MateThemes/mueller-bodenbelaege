@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { Container } from '@/components/Container'
@@ -6,12 +6,13 @@ import { Button } from '@/components/Button'
 import { services } from '@/data/services'
 import { type Service } from '@/types/service'
 
-type Props = {
+interface PageProps {
   params: { serviceId: string }
-  searchParams: { [key: string]: string | string[] | undefined }
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+type StaticParams = { serviceId: string }
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const service: Service | undefined = services.find(s => s.id === params.serviceId)
   
   if (!service) return {}
@@ -44,13 +45,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export function generateStaticParams() {
+export function generateStaticParams(): StaticParams[] {
   return services.map((service) => ({
     serviceId: service.id,
   }))
 }
 
-export default function Page({ params }: Props) {
+export default function Page({ params }: PageProps) {
   const service: Service | undefined = services.find(s => s.id === params.serviceId)
   
   if (!service) {
