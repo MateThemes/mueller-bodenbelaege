@@ -18,10 +18,10 @@ export const About = () => {
                 <div className="flex flex-wrap -m-2">
                   <div className="w-full md:w-auto p-2">
                     <Link
-                      href="/leistungen"
+                      href="/ueber-uns"
                       className="focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:cursor-not-allowed aria-disabled:opacity-75 flex-shrink-0 font-medium rounded-md text-sm gap-x-2.5 px-3.5 py-2.5 shadow-sm text-white dark:text-gray-900 bg-brand hover:bg-brand-dark disabled:bg-brand aria-disabled:bg-brand dark:bg-brand-light dark:hover:bg-brand dark:disabled:bg-brand-light dark:aria-disabled:bg-brand-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand dark:focus-visible:outline-brand-light items-center w-full flex justify-center"
                     >
-                      Unsere Leistungen
+                      Mehr über uns
                     </Link>
                   </div>
                 </div>

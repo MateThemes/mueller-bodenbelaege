@@ -55,37 +55,41 @@ const products = [
 
 export default function ProductsPage() {
   return (
-    <div className="bg-white dark:bg-gray-950">
+    <main className="bg-white dark:bg-gray-950">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24">
-        <div className="text-center">
+        <header className="text-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl">
             Unsere Produkte
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-xl text-gray-600 dark:text-gray-300">
             Entdecken Sie unsere vielfältige Auswahl an hochwertigen Bodenbelägen
           </p>
-        </div>
+        </header>
 
-        <div className="mt-20 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
-            <Link
-              key={product.name}
-              href={product.href}
-              className="group relative block overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-8 transition-all hover:border-brand dark:hover:border-brand-light"
-            >
-              <div className="relative z-10">
-                <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-brand dark:group-hover:text-brand-light">
-                  {product.name}
-                </h3>
-                <p className="mt-4 text-gray-600 dark:text-gray-400">
-                  {product.description}
-                </p>
-              </div>
-              <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
-            </Link>
-          ))}
-        </div>
+        <nav aria-label="Produktkategorien" className="mt-20">
+          <ul role="list" className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {products.map((product) => (
+              <li key={product.name} role="listitem">
+                <Link
+                  href={product.href}
+                  className="group relative block overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900 p-8 transition-all hover:border-brand dark:hover:border-brand-light"
+                  aria-label={`${product.name} - ${product.description}`}
+                >
+                  <div className="relative z-10">
+                    <h2 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-brand dark:group-hover:text-brand-light">
+                      {product.name}
+                    </h2>
+                    <p className="mt-4 text-gray-600 dark:text-gray-400">
+                      {product.description}
+                    </p>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
       </div>
-    </div>
+    </main>
   )
 }

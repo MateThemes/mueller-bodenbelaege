@@ -17,12 +17,12 @@ const services = [
   {
     name: 'Bodenverlegung',
     description: 'Fachgerechte Installation aller Bodenbeläge',
-    href: '/leistungen/verlegung',
+    href: '/leistungen/verlegen',
   },
   {
     name: 'Renovierung & Sanierung',
     description: 'Professionelle Aufarbeitung bestehender Böden',
-    href: '/leistungen/sanierung',
+    href: '/leistungen/parkett-schleifen',
   },
   {
     name: 'Grundreinigung & Pflege',
@@ -32,22 +32,22 @@ const services = [
   {
     name: 'Treppenrenovierung',
     description: 'Renovierung und Aufarbeitung von Treppen',
-    href: '/leistungen/treppen',
+    href: '/leistungen/treppenrenovierung',
   },
   {
     name: 'Aufmaß & Inspektion',
     description: 'Präzise Vermessung und Begutachtung',
-    href: '/leistungen/aufmass',
+    href: '/leistungen/aufmass-inspektion',
   },
   {
     name: 'Altboden-Entsorgung',
     description: 'Fachgerechte Entfernung alter Bodenbeläge',
-    href: '/leistungen/entsorgung',
+    href: '/leistungen/altboden-entsorgung',
   },
   {
-    name: 'Wohnraumlüftung',
-    description: 'Optimierung des Raumklimas',
-    href: '/leistungen/wohnraumlueftung',
+    name: 'Reparaturen',
+    description: 'Professionelle Reparatur aller Bodenbeläge',
+    href: '/leistungen/reparaturen',
   },
   {
     name: 'Raumgestaltung',
@@ -140,6 +140,9 @@ export const Header = () => {
   const pathname = usePathname()
   const productsRef = useRef<HTMLDivElement>(null)
   const servicesRef = useRef<HTMLDivElement>(null)
+  const servicesButtonRef = useRef<HTMLButtonElement>(null)
+  const productsButtonRef = useRef<HTMLButtonElement>(null)
+  const mobileMenuButtonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {
     setIsMounted(true)
@@ -203,6 +206,7 @@ export const Header = () => {
 
   return (
     <header
+      role="banner"
       className={`fixed w-full z-50 transition-all duration-300 ${
         isScrolled || isMobileMenuOpen ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md' : 'bg-transparent'
       }`}
@@ -244,7 +248,15 @@ export const Header = () => {
                     setIsServicesOpen(!isServicesOpen)
                     setIsProductsOpen(false)
                   }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape') {
+                      setIsServicesOpen(false)
+                    }
+                  }}
                   aria-expanded={isServicesOpen}
+                  aria-haspopup="true"
+                  aria-controls="services-menu"
+                  aria-label="Leistungen Menü"
                 >
                   <span>Leistungen</span>
                   <ChevronDownIcon
@@ -257,7 +269,11 @@ export const Header = () => {
 
                 {/* Mega menu overlay */}
                 {isServicesOpen && (
-                  <div className="absolute left-1/2 z-50 mt-2 w-screen max-w-2xl -translate-x-1/2 transform px-2">
+                  <div 
+                    id="services-menu"
+                    className="absolute left-1/2 z-50 mt-2 w-screen max-w-2xl -translate-x-1/2 transform px-2"
+                    role="menu"
+                  >
                     <div className="mx-auto overflow-hidden rounded-2xl bg-white dark:bg-gray-900 shadow-xl ring-1 ring-black/5 dark:ring-white/5">
                       <div className="relative">
                         {/* Header */}
@@ -274,6 +290,8 @@ export const Header = () => {
                               href={service.href}
                               className="group/item block rounded-lg p-3 hover:bg-gray-50 dark:hover:bg-gray-800"
                               onClick={() => setIsServicesOpen(false)}
+                              role="menuitem"
+                              aria-label={`${service.name} - ${service.description}`}
                             >
                               <p className="text-base font-medium text-gray-900 dark:text-white group-hover/item:text-brand dark:group-hover/item:text-brand-light">
                                 {service.name}
@@ -314,7 +332,15 @@ export const Header = () => {
                     setIsProductsOpen(!isProductsOpen)
                     setIsServicesOpen(false)
                   }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape') {
+                      setIsProductsOpen(false)
+                    }
+                  }}
                   aria-expanded={isProductsOpen}
+                  aria-haspopup="true"
+                  aria-controls="products-menu"
+                  aria-label="Produkte Menü"
                 >
                   <span>Produkte</span>
                   <ChevronDownIcon
@@ -327,7 +353,11 @@ export const Header = () => {
 
                 {/* Mega menu overlay */}
                 {isProductsOpen && (
-                  <div className="absolute left-1/2 z-50 mt-2 w-screen max-w-4xl -translate-x-1/2 transform px-2">
+                  <div 
+                    id="products-menu"
+                    className="absolute left-1/2 z-50 mt-2 w-screen max-w-4xl -translate-x-1/2 transform px-2"
+                    role="menu"
+                  >
                     <div className="mx-auto overflow-hidden rounded-2xl bg-white dark:bg-gray-900 shadow-xl ring-1 ring-black/5 dark:ring-white/5">
                       <div className="relative">
                         {/* Header */}
@@ -350,6 +380,8 @@ export const Header = () => {
                                       href={item.href}
                                       className="group/item block rounded-lg py-1 px-2 hover:bg-gray-50 dark:hover:bg-gray-800"
                                       onClick={() => setIsProductsOpen(false)}
+                                      role="menuitem"
+                                      aria-label={`${item.name} - ${item.description}`}
                                     >
                                       <p className="text-sm font-medium text-gray-900 dark:text-white group-hover/item:text-brand dark:group-hover/item:text-brand-light">
                                         {item.name}
@@ -424,10 +456,19 @@ export const Header = () => {
             <ThemeToggle />
             <button
               type="button"
+              ref={mobileMenuButtonRef}
               className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-700 dark:text-gray-200"
               onClick={() => setIsMobileMenuOpen(true)}
+              onKeyDown={(e) => {
+                if (e.key === 'Escape') {
+                  setIsMobileMenuOpen(false)
+                }
+              }}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
+              aria-label="Hauptmenü öffnen"
             >
-              <span className="sr-only">Menü öffnen</span>
+              <span className="sr-only">Hauptmenü öffnen</span>
               <Bars3Icon className="h-6 w-6" aria-hidden="true" />
             </button>
           </div>
@@ -436,7 +477,15 @@ export const Header = () => {
 
       {/* Mobile menu panel */}
       <Transition.Root show={isMobileMenuOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-50 lg:hidden" onClose={setIsMobileMenuOpen}>
+        <Dialog 
+          as="div" 
+          className="relative z-50 lg:hidden" 
+          onClose={setIsMobileMenuOpen}
+          id="mobile-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobiles Hauptmenü"
+        >
           <Transition.Child
             as={Fragment}
             enter="transition-opacity ease-linear duration-300"
@@ -466,8 +515,9 @@ export const Header = () => {
                     type="button"
                     className="relative z-10 rounded-md p-2.5 text-gray-900 dark:text-white bg-white dark:bg-gray-900 shadow-md"
                     onClick={() => setIsMobileMenuOpen(false)}
+                    aria-label="Hauptmenü schließen"
                   >
-                    <span className="sr-only">Close menu</span>
+                    <span className="sr-only">Hauptmenü schließen</span>
                     <XMarkIcon className="h-6 w-6" aria-hidden="true" />
                   </button>
                 </div>
@@ -505,7 +555,7 @@ export const Header = () => {
                               : 'hidden opacity-0'
                           }`}
                         >
-                          <div className="space-y-4 pl-4">
+                          <div id="mobile-services-menu" className="space-y-4 pl-4" role="menu" aria-label="Mobile Leistungen Navigation">
                             {services.map((service) => (
                               <Link
                                 key={service.name}
@@ -544,7 +594,7 @@ export const Header = () => {
                               : 'hidden opacity-0'
                           }`}
                         >
-                          <div className="pl-4">
+                          <div id="mobile-products-menu" className="pl-4" role="menu" aria-label="Mobile Produkte Navigation">
                             {Object.entries(products).map(([key, category]) => (
                               <div key={key} className="mb-4">
                                 <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
