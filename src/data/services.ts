@@ -1,4 +1,4 @@
-import { Ruler, Hammer, Paintbrush, Sparkles, ArrowUpSquare, Square, Trash2, Palette, LayoutGrid } from 'lucide-react'
+import { Ruler, Hammer, Paintbrush, Sparkles, ArrowUpSquare, Square, Trash2, Palette } from 'lucide-react'
 import { Service } from '@/types/service'
 
 export const services: Service[] = [
@@ -434,112 +434,8 @@ export const services: Service[] = [
       href: '/leistungen/raumgestaltung'
     }
   },
-  {
-    id: 'aufmass-inspektion',
-    title: 'Aufmaß & Inspektion',
-    description: 'Präzise Vermessung und Inspektion für Ihr Bodenprojekt',
-    imageUrl: '/img/services/aufmass.jpg',
-    icon: Square,
-    features: [
-      'Präzise Raumvermessung',
-      'Untergrundprüfung',
-      'Feuchtigkeitsmessung',
-      'Ebenheitskontrolle',
-      'Materialbedarfsermittlung',
-      'Dokumentation',
-      'Schadensanalyse',
-      'Machbarkeitsprüfung'
-    ],
-    benefits: [
-      {
-        title: 'Präzise Planung',
-        description: 'Exakte Vermessung für eine detaillierte und kostenoptimierte Planung.'
-      },
-      {
-        title: 'Problemerkennung',
-        description: 'Frühzeitige Erkennung möglicher Probleme und Herausforderungen.'
-      },
-      {
-        title: 'Kostensicherheit',
-        description: 'Genaue Materialbedarfsermittlung für eine transparente Kostenkalkulation.'
-      }
-    ],
-    processSteps: [
-      {
-        title: 'Erstbegehung',
-        description: 'Erste Besichtigung und Besprechung der Anforderungen.'
-      },
-      {
-        title: 'Vermessung',
-        description: 'Präzise Vermessung aller relevanten Räumlichkeiten.'
-      },
-      {
-        title: 'Analyse',
-        description: 'Gründliche Untersuchung des Untergrunds und der Gegebenheiten.'
-      },
-      {
-        title: 'Dokumentation',
-        description: 'Detaillierte Aufbereitung aller Messergebnisse und Erkenntnisse.'
-      }
-    ],
-    cta: {
-      text: 'Mehr über Aufmaß & Inspektion',
-      href: '/leistungen/aufmass-inspektion'
-    }
-  },
-  {
-    id: 'raumgestaltung',
-    title: 'Raumgestaltung',
-    description: 'Ganzheitliche Raumgestaltung mit dem perfekten Zusammenspiel von Bodenbelägen, Farben und Materialien für ein harmonisches Gesamtkonzept.',
-    imageUrl: '/img/services/raumgestaltung.jpg',
-    icon: LayoutGrid,
-    features: [
-      'Farbkonzepte',
-      'Materialberatung',
-      'Lichtplanung',
-      'Raumakustik',
-      'Möblierungsvorschläge',
-      'Stilberatung',
-      'Visualisierung',
-      'Musterservice'
-    ],
-    benefits: [
-      {
-        title: 'Harmonisches Konzept',
-        description: 'Perfekt aufeinander abgestimmte Materialien, Farben und Einrichtungselemente.'
-      },
-      {
-        title: 'Individuelle Lösung',
-        description: 'Maßgeschneiderte Gestaltungskonzepte nach Ihren Wünschen und Bedürfnissen.'
-      },
-      {
-        title: 'Professionelle Beratung',
-        description: 'Umfassende Beratung durch erfahrene Raumgestalter.'
-      }
-    ],
-    processSteps: [
-      {
-        title: 'Bestandsaufnahme',
-        description: 'Analyse der vorhandenen Räumlichkeiten und Ihrer Wünsche.'
-      },
-      {
-        title: 'Konzeptentwicklung',
-        description: 'Erarbeitung eines ganzheitlichen Gestaltungskonzepts.'
-      },
-      {
-        title: 'Visualisierung',
-        description: 'Präsentation der Gestaltungsvorschläge mit Visualisierungen.'
-      },
-      {
-        title: 'Umsetzung',
-        description: 'Koordinierte Umsetzung aller gestalterischen Maßnahmen.'
-      }
-    ],
-    cta: {
-      text: 'Mehr über Raumgestaltung',
-      href: '/leistungen/raumgestaltung'
-    }
-  },
+
+
   {
     id: 'reparaturen',
     title: 'Reparaturen',
