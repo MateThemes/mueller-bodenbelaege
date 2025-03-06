@@ -1,6 +1,6 @@
 import { LucideIcon } from 'lucide-react'
 
-export interface Service {
+export interface Product {
   id: string
   title: string
   description: string

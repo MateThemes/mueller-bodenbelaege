@@ -10,29 +10,49 @@ import { ThemeToggle } from '../theme-toggle'
 
 const services = [
   {
-    name: 'Parkett schleifen',
-    description: 'Professionelle Aufarbeitung Ihrer Parkettböden',
-    href: '/leistungen/parkett-schleifen',
+    name: 'Beratung & Planung',
+    description: 'Professionelle Beratung für Ihr Bodenprojekt',
+    href: '/leistungen/beratung',
   },
   {
-    name: 'Verlegen',
-    description: 'Fachgerechte Verlegung aller Bodenbeläge',
-    href: '/leistungen/verlegen',
+    name: 'Bodenverlegung',
+    description: 'Fachgerechte Installation aller Bodenbeläge',
+    href: '/leistungen/verlegung',
   },
   {
-    name: 'Grundreinigung',
-    description: 'Gründliche Reinigung und Pflege',
+    name: 'Renovierung & Sanierung',
+    description: 'Professionelle Aufarbeitung bestehender Böden',
+    href: '/leistungen/sanierung',
+  },
+  {
+    name: 'Grundreinigung & Pflege',
+    description: 'Professionelle Reinigung und Pflege',
     href: '/leistungen/grundreinigung',
   },
   {
     name: 'Treppenrenovierung',
     description: 'Renovierung und Aufarbeitung von Treppen',
-    href: '/leistungen/treppenrenovierung',
+    href: '/leistungen/treppen',
   },
   {
-    name: 'Reparaturen',
-    description: 'Professionelle Reparatur von Beschädigungen',
-    href: '/leistungen/reparaturen',
+    name: 'Aufmaß & Inspektion',
+    description: 'Präzise Vermessung und Begutachtung',
+    href: '/leistungen/aufmass',
+  },
+  {
+    name: 'Altboden-Entsorgung',
+    description: 'Fachgerechte Entfernung alter Bodenbeläge',
+    href: '/leistungen/entsorgung',
+  },
+  {
+    name: 'Wohnraumlüftung',
+    description: 'Optimierung des Raumklimas',
+    href: '/leistungen/wohnraumlueftung',
+  },
+  {
+    name: 'Raumgestaltung',
+    description: 'Ganzheitliche Gestaltungsberatung',
+    href: '/leistungen/raumgestaltung',
   },
 ]
 
@@ -217,6 +237,76 @@ export const Header = () => {
                 Home
               </Link>
 
+              <div className="relative" ref={servicesRef}>
+                <button
+                  className="flex items-center gap-1 text-base font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                  onClick={() => {
+                    setIsServicesOpen(!isServicesOpen)
+                    setIsProductsOpen(false)
+                  }}
+                  aria-expanded={isServicesOpen}
+                >
+                  <span>Leistungen</span>
+                  <ChevronDownIcon
+                    className={`h-5 w-5 transform transition-transform duration-200 ${
+                      isServicesOpen ? 'rotate-180' : ''
+                    }`}
+                    aria-hidden="true"
+                  />
+                </button>
+
+                {/* Mega menu overlay */}
+                {isServicesOpen && (
+                  <div className="absolute left-1/2 z-50 mt-2 w-screen max-w-2xl -translate-x-1/2 transform px-2">
+                    <div className="mx-auto overflow-hidden rounded-2xl bg-white dark:bg-gray-900 shadow-xl ring-1 ring-black/5 dark:ring-white/5">
+                      <div className="relative">
+                        {/* Header */}
+                        <div className="bg-gray-50 dark:bg-gray-800/50 px-5 py-3 sm:px-6">
+                          <h3 className="text-base font-semibold leading-6 text-gray-900 dark:text-white">
+                            Unsere Leistungen
+                          </h3>
+                        </div>
+                        {/* Grid */}
+                        <div className="relative grid grid-cols-2 gap-x-6 gap-y-4 p-6">
+                          {services.map((service) => (
+                            <Link
+                              key={service.name}
+                              href={service.href}
+                              className="group/item block rounded-lg p-3 hover:bg-gray-50 dark:hover:bg-gray-800"
+                              onClick={() => setIsServicesOpen(false)}
+                            >
+                              <p className="text-base font-medium text-gray-900 dark:text-white group-hover/item:text-brand dark:group-hover/item:text-brand-light">
+                                {service.name}
+                              </p>
+                              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                                {service.description}
+                              </p>
+                            </Link>
+                          ))}
+                        </div>
+                        {/* Footer */}
+                        <div className="bg-gray-50 dark:bg-gray-800/50 px-5 py-3 flex items-center justify-between">
+                          <Link
+                            href="/leistungen"
+                            className="text-sm font-medium text-brand dark:text-brand-light hover:text-brand/80 dark:hover:text-brand-light/80"
+                            onClick={() => setIsServicesOpen(false)}
+                          >
+                            Alle Leistungen ansehen →
+                          </Link>
+                          <Link
+                            href="/kontakt"
+                            className="inline-flex items-center rounded-full border-2 border-brand bg-transparent px-4 py-1 text-sm font-medium text-brand transition-colors hover:bg-brand hover:text-white dark:border-brand-light dark:text-brand-light dark:hover:bg-brand-light dark:hover:text-gray-900"
+                            onClick={() => setIsServicesOpen(false)}
+                          >
+                            Kontakt
+                          </Link>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+
               <div className="relative" ref={productsRef}>
                 <button
                   className="flex items-center gap-1 text-base font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
@@ -294,96 +384,15 @@ export const Header = () => {
                 )}
               </div>
 
-              <div className="relative" ref={servicesRef}>
-                <button
-                  className="flex items-center gap-1 text-base font-medium text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-                  onClick={() => {
-                    setIsServicesOpen(!isServicesOpen)
-                    setIsProductsOpen(false)
-                  }}
-                  aria-expanded={isServicesOpen}
-                >
-                  <span>Leistungen</span>
-                  <ChevronDownIcon
-                    className={`h-5 w-5 transform transition-transform duration-200 ${
-                      isServicesOpen ? 'rotate-180' : ''
-                    }`}
-                    aria-hidden="true"
-                  />
-                </button>
-
-                {/* Mega menu overlay */}
-                {isServicesOpen && (
-                  <div className="absolute left-1/2 z-50 mt-2 w-screen max-w-2xl -translate-x-1/2 transform px-2">
-                    <div className="mx-auto overflow-hidden rounded-2xl bg-white dark:bg-gray-900 shadow-xl ring-1 ring-black/5 dark:ring-white/5">
-                      <div className="relative">
-                        {/* Header */}
-                        <div className="bg-gray-50 dark:bg-gray-800/50 px-5 py-3 sm:px-6">
-                          <h3 className="text-base font-semibold leading-6 text-gray-900 dark:text-white">
-                            Unsere Leistungen
-                          </h3>
-                        </div>
-                        {/* Grid */}
-                        <div className="relative grid grid-cols-2 gap-x-6 gap-y-4 p-6">
-                          {services.map((service) => (
-                            <Link
-                              key={service.name}
-                              href={service.href}
-                              className="group/item block rounded-lg p-3 hover:bg-gray-50 dark:hover:bg-gray-800"
-                              onClick={() => setIsServicesOpen(false)}
-                            >
-                              <p className="text-base font-medium text-gray-900 dark:text-white group-hover/item:text-brand dark:group-hover/item:text-brand-light">
-                                {service.name}
-                              </p>
-                              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                                {service.description}
-                              </p>
-                            </Link>
-                          ))}
-                        </div>
-                        {/* Footer */}
-                        <div className="bg-gray-50 dark:bg-gray-800/50 px-5 py-3 flex items-center justify-between">
-                          <Link
-                            href="/leistungen"
-                            className="text-sm font-medium text-brand dark:text-brand-light hover:text-brand/80 dark:hover:text-brand-light/80"
-                            onClick={() => setIsServicesOpen(false)}
-                          >
-                            Alle Leistungen ansehen →
-                          </Link>
-                          <Link
-                            href="/kontakt"
-                            className="inline-flex items-center rounded-full border-2 border-brand bg-transparent px-4 py-1 text-sm font-medium text-brand transition-colors hover:bg-brand hover:text-white dark:border-brand-light dark:text-brand-light dark:hover:bg-brand-light dark:hover:text-gray-900"
-                            onClick={() => setIsServicesOpen(false)}
-                          >
-                            Kontakt
-                          </Link>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div>
-
               <Link
-                href="/angebote"
+                href="/projekte"
                 className={`text-base font-medium transition-colors ${
-                  pathname === '/angebote'
+                  pathname === '/projekte'
                     ? 'text-brand'
                     : 'text-gray-700 hover:text-brand dark:text-gray-200 dark:hover:text-brand-light'
                 }`}
               >
-                Angebote
-              </Link>
-
-              <Link
-                href="/galerie"
-                className={`text-base font-medium transition-colors ${
-                  pathname === '/galerie'
-                    ? 'text-brand'
-                    : 'text-gray-700 hover:text-brand dark:text-gray-200 dark:hover:text-brand-light'
-                }`}
-              >
-                Galerie
+                Projekte
               </Link>
 
               <Link
@@ -478,6 +487,45 @@ export const Header = () => {
                       <div className="relative">
                         <button
                           className="flex w-full items-center justify-between text-2xl font-medium text-gray-900 dark:text-white"
+                          onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
+                        >
+                          <span>Leistungen</span>
+                          <ChevronDownIcon
+                            className={`ml-2 h-6 w-6 transition-transform duration-200 ${
+                              isMobileServicesOpen ? 'rotate-180' : ''
+                            }`}
+                            aria-hidden="true"
+                          />
+                        </button>
+
+                        <div
+                          className={`mt-4 transition-all duration-300 ease-in-out ${
+                            isMobileServicesOpen
+                              ? 'block opacity-100'
+                              : 'hidden opacity-0'
+                          }`}
+                        >
+                          <div className="space-y-4 pl-4">
+                            {services.map((service) => (
+                              <Link
+                                key={service.name}
+                                href={service.href}
+                                className="block text-xl text-gray-700 hover:text-brand dark:text-gray-200 dark:hover:text-brand-light"
+                                onClick={() => {
+                                  setIsMobileServicesOpen(false)
+                                  setIsMobileMenuOpen(false)
+                                }}
+                              >
+                                {service.name}
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="relative">
+                        <button
+                          className="flex w-full items-center justify-between text-2xl font-medium text-gray-900 dark:text-white"
                           onClick={() => setIsMobileProductsOpen(!isMobileProductsOpen)}
                         >
                           <span>Produkte</span>
@@ -524,59 +572,12 @@ export const Header = () => {
                         </div>
                       </div>
 
-                      <div className="relative">
-                        <button
-                          className="flex w-full items-center justify-between text-2xl font-medium text-gray-900 dark:text-white"
-                          onClick={() => setIsMobileServicesOpen(!isMobileServicesOpen)}
-                        >
-                          <span>Leistungen</span>
-                          <ChevronDownIcon
-                            className={`ml-2 h-6 w-6 transition-transform duration-200 ${
-                              isMobileServicesOpen ? 'rotate-180' : ''
-                            }`}
-                            aria-hidden="true"
-                          />
-                        </button>
-
-                        <div
-                          className={`mt-4 transition-all duration-300 ease-in-out ${
-                            isMobileServicesOpen
-                              ? 'block opacity-100'
-                              : 'hidden opacity-0'
-                          }`}
-                        >
-                          <div className="space-y-4 pl-4">
-                            {services.map((service) => (
-                              <Link
-                                key={service.name}
-                                href={service.href}
-                                className="block text-xl text-gray-700 hover:text-brand dark:text-gray-200 dark:hover:text-brand-light"
-                                onClick={() => {
-                                  setIsMobileServicesOpen(false)
-                                  setIsMobileMenuOpen(false)
-                                }}
-                              >
-                                {service.name}
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-
                       <Link
-                        href="/angebote"
+                        href="/projekte"
                         className="text-2xl font-medium text-gray-900 hover:text-brand dark:text-white dark:hover:text-brand-light"
                         onClick={() => setIsMobileMenuOpen(false)}
                       >
-                        Angebote
-                      </Link>
-
-                      <Link
-                        href="/galerie"
-                        className="text-2xl font-medium text-gray-900 hover:text-brand dark:text-white dark:hover:text-brand-light"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        Galerie
+                        Projekte
                       </Link>
 
                       <Link

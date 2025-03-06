@@ -1,44 +1,13 @@
+import React from 'react';
 import Link from 'next/link'
 import Image from 'next/image'
 import type { Metadata } from 'next'
+import { services } from '@/data/services'
 
 export const metadata: Metadata = {
   title: 'Leistungen | Müller Bodenbeläge München - Parkett, Laminat & mehr',
   description: 'Professionelle Bodenbelagsarbeiten in München: Parkett schleifen, Bodenverlegung, Grundreinigung, Treppenrenovierung und Reparaturen. ✓ 30 Jahre Erfahrung ✓ Faire Preise',
 }
-
-const services = [
-  {
-    title: 'Parkett schleifen',
-    description: 'Professionelle Parkettschleifarbeiten für die Wiederherstellung des ursprünglichen Glanzes Ihres Holzbodens.',
-    href: '/leistungen/parkett-schleifen',
-    image: '/img/services/parkett-schleifen.jpg'
-  },
-  {
-    title: 'Verlegen',
-    description: 'Fachgerechte Verlegung verschiedener Bodenbeläge - von Parkett über Laminat bis hin zu Vinyl.',
-    href: '/leistungen/verlegen',
-    image: '/img/services/verlegen.jpg'
-  },
-  {
-    title: 'Grundreinigung',
-    description: 'Gründliche Reinigung und Pflege Ihrer Bodenbeläge für eine längere Lebensdauer.',
-    href: '/leistungen/grundreinigung',
-    image: '/img/services/grundreinigung.jpg'
-  },
-  {
-    title: 'Treppen renovieren',
-    description: 'Fachmännische Renovierung und Aufarbeitung von Treppen für mehr Sicherheit und Ästhetik.',
-    href: '/leistungen/treppen-renovieren',
-    image: '/img/services/treppen-renovieren.jpg'
-  },
-  {
-    title: 'Reparaturen',
-    description: 'Schnelle und professionelle Reparatur von beschädigten Bodenbelägen aller Art.',
-    href: '/leistungen/reparaturen',
-    image: '/img/services/reparaturen.jpg'
-  }
-]
 
 export default function ServicesPage() {
   return (
@@ -61,28 +30,44 @@ export default function ServicesPage() {
             </p>
           </div>
 
+          {/* Service Cards */}
           <div className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-12 lg:mx-0 lg:max-w-none lg:grid-cols-3">
             {services.map((service) => (
               <Link 
-                key={service.title} 
-                href={service.href}
+                key={service.id} 
+                href={service.cta.href}
                 className="group relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 px-8 pb-8 pt-80 transition-transform duration-300 hover:-translate-y-2"
               >
                 <Image
-                  src={service.image}
+                  src={service.imageUrl}
                   alt={service.title}
-                  className="absolute inset-0 -z-10 h-full w-full object-cover"
+                  className="absolute inset-0 -z-10 h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   width={400}
                   height={500}
                 />
                 <div className="absolute inset-0 -z-10 bg-gradient-to-t from-gray-900 via-gray-900/40" />
                 <div className="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-gray-900/10" />
+                
+                {/* Icon */}
+                <div className="mb-4">
+                  {React.createElement(service.icon, { className: "h-8 w-8 text-white" })}
+                </div>
+                
                 <h2 className="mt-3 text-2xl font-semibold leading-6 text-white">
                   {service.title}
                 </h2>
                 <p className="mt-3 text-sm leading-6 text-gray-300">
                   {service.description}
                 </p>
+                
+                {/* Features list */}
+                <ul className="mt-4 space-y-1">
+                  {service.features.map((feature, index) => (
+                    <li key={index} className="text-sm text-gray-300">
+                      • {feature}
+                    </li>
+                  ))}
+                </ul>
               </Link>
             ))}
           </div>
