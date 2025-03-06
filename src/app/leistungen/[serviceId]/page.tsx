@@ -13,9 +13,9 @@ type Props = {
   params: { serviceId: string }
 }
 
-export async function generateMetadata(
+export function generateMetadata(
   { params }: Props
-): Promise<Metadata> {
+): Metadata {
   const { serviceId } = params
   const service: Service | undefined = services.find(s => s.id === serviceId)
   
@@ -55,7 +55,7 @@ export function generateStaticParams() {
   }))
 }
 
-export default async function Page(
+export default function Page(
   { params }: Props
 ) {
   const { serviceId } = params
