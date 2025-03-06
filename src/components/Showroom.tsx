@@ -30,7 +30,7 @@ export function Showroom() {
 
   return (
     <section className="py-20 lg:py-32 bg-white dark:bg-gray-900">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <span className="inline-block mb-4 text-sm text-brand dark:text-brand-light font-medium uppercase tracking-widest">
             Unser Showroom
@@ -49,12 +49,14 @@ export function Showroom() {
               key={index} 
               className="group relative overflow-hidden rounded-3xl bg-gray-50 dark:bg-gray-800"
             >
-              <div className="aspect-w-16 aspect-h-9 relative">
+              <div className="relative">
                 <Image
                   src={image.src}
                   alt={image.alt}
-                  fill
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
+                  width={800}
+                  height={450}
+                  quality={80}
+                  className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>

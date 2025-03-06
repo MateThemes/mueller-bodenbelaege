@@ -170,7 +170,7 @@ export const Header = () => {
   if (!isMounted) {
     return (
       <header className="fixed top-0 left-0 right-0 z-50 h-20">
-        <nav className="container mx-auto xl:px-8">
+        <nav className="container mx-auto">
           <div className="flex items-center justify-between h-24">
             <div className="flex-shrink-0">
               <div className="w-[220px] h-12" />
@@ -187,22 +187,24 @@ export const Header = () => {
         isScrolled || isMobileMenuOpen ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm shadow-md' : 'bg-transparent'
       }`}
     >
-      <nav className="container mx-auto px-4">
+      <nav className="container mx-auto">
         <div className="flex items-center justify-between h-24">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
-            <Image
-              src="/img/logo/mueller-bodenbelaege.svg"
-              alt="Müller Bodenbeläge Logo"
-              width={220}
-              height={61}
-              className="w-[220px] h-[61px] dark:brightness-0 dark:invert"
-              priority
-            />
+            <div className="-ml-4">
+              <Image
+                src="/img/logo/mueller-bodenbelaege.svg"
+                alt="Müller Bodenbeläge Logo"
+                width={220}
+                height={61}
+                className="w-[220px] h-[61px] dark:brightness-0 dark:invert"
+                priority
+              />
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:flex xl:items-center xl:flex-1">
+          <div className="hidden lg:flex lg:items-center lg:space-x-8">
             <div className="flex items-center justify-center w-full space-x-6">
               <Link
                 href="/"
@@ -398,7 +400,7 @@ export const Header = () => {
           </div>
 
           {/* Desktop CTA */}
-          <div className="hidden xl:flex xl:items-center xl:gap-4">
+          <div className="hidden lg:flex lg:items-center lg:gap-4">
             <ThemeToggle />
             <Link
               href="/kontakt"
@@ -409,7 +411,7 @@ export const Header = () => {
           </div>
 
           {/* Mobile menu button */}
-          <div className="flex xl:hidden items-center gap-4">
+          <div className="flex lg:hidden items-center gap-4">
             <ThemeToggle />
             <button
               type="button"
@@ -425,7 +427,7 @@ export const Header = () => {
 
       {/* Mobile menu panel */}
       <Transition.Root show={isMobileMenuOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-50 xl:hidden" onClose={setIsMobileMenuOpen}>
+        <Dialog as="div" className="relative z-50 lg:hidden" onClose={setIsMobileMenuOpen}>
           <Transition.Child
             as={Fragment}
             enter="transition-opacity ease-linear duration-300"
