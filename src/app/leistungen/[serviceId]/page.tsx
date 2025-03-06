@@ -10,13 +10,13 @@ import { type Service } from '@/types/service'
 export const dynamic = 'force-static'
 
 type Props = {
-  params: { serviceId: string }
+  params: Promise<{ serviceId: string }>
 }
 
-export function generateMetadata(
+export async function generateMetadata(
   { params }: Props
-): Metadata {
-  const { serviceId } = params
+): Promise<Metadata> {
+  const { serviceId } = await params
   const service: Service | undefined = services.find(s => s.id === serviceId)
   
   if (!service) return {}
@@ -55,10 +55,10 @@ export function generateStaticParams() {
   }))
 }
 
-export default function Page(
+export default async function Page(
   { params }: Props
 ) {
-  const { serviceId } = params
+  const { serviceId } = await params
   const service: Service | undefined = services.find(s => s.id === serviceId)
   
   if (!service) {
