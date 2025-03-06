@@ -6,14 +6,17 @@ import { Button } from '@/components/Button'
 import { services } from '@/data/services'
 import { type Service } from '@/types/service'
 
-interface PageProps {
-  params: { serviceId: string }
+type PageParams = {
+  serviceId: string
 }
 
-type StaticParams = { serviceId: string }
+type Props = {
+  params: Promise<PageParams> | PageParams
+}
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const service: Service | undefined = services.find(s => s.id === params.serviceId)
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const resolvedParams = params instanceof Promise ? await params : params
+  const service: Service | undefined = services.find(s => s.id === resolvedParams.serviceId)
   
   if (!service) return {}
 
@@ -45,14 +48,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export function generateStaticParams(): StaticParams[] {
+export function generateStaticParams(): PageParams[] {
   return services.map((service) => ({
     serviceId: service.id,
   }))
 }
 
-export default function Page({ params }: PageProps) {
-  const service: Service | undefined = services.find(s => s.id === params.serviceId)
+export default async function Page({ params }: Props) {
+  const resolvedParams = params instanceof Promise ? await params : params
+  const service: Service | undefined = services.find(s => s.id === resolvedParams.serviceId)
   
   if (!service) {
     notFound()
