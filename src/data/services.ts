@@ -50,8 +50,8 @@ export const services: Service[] = [
   {
     id: 'verlegen',
     title: 'Bodenverlegung',
-    description: 'Von Parkett über Laminat bis hin zu Vinyl - wir verlegen Ihren neuen Boden fachgerecht und präzise. Mit unserer Erfahrung garantieren wir eine perfekte Verarbeitung und lange Haltbarkeit.',
-    imageUrl: '/img/services/verlegen-detail.jpg',
+    description: 'Fachgerechte Verlegung verschiedener Bodenbeläge mit Qualitätsgarantie',
+    imageUrl: '/img/services/verlegung.jpg',
     icon: Hammer,
     features: [
       'Parkett (Massiv- und Mehrschichtparkett)',
@@ -107,8 +107,8 @@ export const services: Service[] = [
   {
     id: 'parkett-schleifen',
     title: 'Renovierung & Sanierung',
-    description: 'Professionelle Renovierung und Sanierung bestehender Bodenbeläge. Mit modernster Technik und jahrelanger Erfahrung bringen wir Ihre Böden wieder zum Strahlen.',
-    imageUrl: '/img/services/parkett-schleifen-detail.jpg',
+    description: 'Professionelle Aufarbeitung und Sanierung bestehender Bodenbeläge',
+    imageUrl: '/img/services/parkett-schleifen.jpg',
     icon: Paintbrush,
     features: [
       'Staubfreies Schleifen mit modernster Absaugtechnik',
@@ -164,8 +164,8 @@ export const services: Service[] = [
   {
     id: 'grundreinigung',
     title: 'Grundreinigung & Pflege',
-    description: 'Eine professionelle Grundreinigung verlängert die Lebensdauer Ihres Bodens und sorgt für ein strahlendes Erscheinungsbild. Wir reinigen alle Arten von Bodenbelägen gründlich und materialschonend.',
-    imageUrl: '/img/services/grundreinigung-detail.jpg',
+    description: 'Materialschonende Reinigung und Pflege aller Arten von Bodenbelägen',
+    imageUrl: '/img/services/grundreinigung.jpg',
     icon: Sparkles,
     features: [
       'Grundreinigung von Parkett und Holzböden',
@@ -217,7 +217,7 @@ export const services: Service[] = [
   {
     id: 'treppenrenovierung',
     title: 'Treppenrenovierung',
-    description: 'Eine abgenutzte Treppe kann den Gesamteindruck Ihres Hauses stark beeinträchtigen. Mit unserer professionellen Treppenrenovierung erstrahlt Ihre Treppe in neuem Glanz und wertet Ihr Zuhause optisch auf.',
+    description: 'Professionelle Renovierung und Aufwertung Ihrer Treppenstufen',
     imageUrl: '/img/services/treppenrenovierung.jpg',
     icon: ArrowUpSquare,
     features: [
@@ -327,7 +327,7 @@ export const services: Service[] = [
   {
     id: 'altboden-entsorgung',
     title: 'Altboden-Entsorgung',
-    description: 'Professionelle und umweltgerechte Entsorgung von alten Bodenbelägen. Wir kümmern uns um die fachgerechte Demontage und Entsorgung Ihrer alten Böden unter Berücksichtigung aller Umweltvorschriften.',
+    description: 'Fachgerechte Demontage und umweltgerechte Entsorgung alter Bodenbeläge',
     imageUrl: '/img/services/entsorgung.jpg',
     icon: Trash2,
     features: [
@@ -437,7 +437,7 @@ export const services: Service[] = [
   {
     id: 'aufmass-inspektion',
     title: 'Aufmaß & Inspektion',
-    description: 'Professionelle Vermessung und Inspektion Ihrer Räumlichkeiten für eine präzise Planung und Ausführung Ihres Bodenprojekts.',
+    description: 'Präzise Vermessung und Inspektion für Ihr Bodenprojekt',
     imageUrl: '/img/services/aufmass.jpg',
     icon: Square,
     features: [
