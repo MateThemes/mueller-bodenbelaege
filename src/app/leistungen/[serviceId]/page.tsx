@@ -5,12 +5,18 @@ import { Container } from '@/components/Container'
 import { Button } from '@/components/Button'
 import { services } from '@/data/services'
 import { type Service } from '@/types/service'
-interface PageProps {
-  params: { serviceId: string }
-  searchParams: { [key: string]: string | string[] | undefined }
+
+interface ServiceParams {
+  serviceId: string
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+interface PageProps {
+  params: ServiceParams
+}
+
+type Props = PageProps
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const service: Service | undefined = services.find(s => s.id === params.serviceId)
   
   if (!service) return {}
@@ -43,13 +49,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 }
 
-export function generateStaticParams() {
-  return services.map((service: Service) => ({
+export function generateStaticParams(): ServiceParams[] {
+  return services.map((service) => ({
     serviceId: service.id,
   }))
 }
 
-export default function Page({ params }: PageProps) {
+export default async function Page({ params }: Props) {
   const service: Service | undefined = services.find(s => s.id === params.serviceId)
   
   if (!service) {
