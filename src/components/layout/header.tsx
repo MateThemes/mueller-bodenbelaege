@@ -140,8 +140,6 @@ export const Header = () => {
   const pathname = usePathname()
   const productsRef = useRef<HTMLDivElement>(null)
   const servicesRef = useRef<HTMLDivElement>(null)
-  const servicesButtonRef = useRef<HTMLButtonElement>(null)
-  const productsButtonRef = useRef<HTMLButtonElement>(null)
   const mobileMenuButtonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => {

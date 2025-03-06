@@ -1,4 +1,4 @@
-import { Ruler, Hammer, Paintbrush, Sparkles, ArrowUpSquare, Square, Trash2, Palette, Wind, LayoutGrid } from 'lucide-react'
+import { Ruler, Hammer, Paintbrush, Sparkles, ArrowUpSquare, Square, Trash2, Palette, LayoutGrid } from 'lucide-react'
 import { Service } from '@/types/service'
 
 export const services: Service[] = [
