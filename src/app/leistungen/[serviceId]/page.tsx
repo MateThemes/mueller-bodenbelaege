@@ -6,8 +6,11 @@ import { Button } from '@/components/Button'
 import { services } from '@/data/services'
 import { type Service } from '@/types/service'
 
-type Props = {
-  params: { serviceId: string }
+interface Props {
+  params: {
+    serviceId: string
+  }
+  searchParams?: { [key: string]: string | string[] | undefined }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -49,7 +52,7 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function ServicePage({ params }: Props) {
+export default function ServicePage({ params }: Props) {
   const service: Service | undefined = services.find(s => s.id === params.serviceId)
   
   if (!service) {
