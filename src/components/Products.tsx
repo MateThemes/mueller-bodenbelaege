@@ -63,7 +63,7 @@ export function Products() {
               href={product.link}
               className="group block overflow-hidden rounded-3xl bg-white dark:bg-gray-700"
             >
-              <div className="aspect-w-16 aspect-h-9 relative">
+              <div className="relative w-full h-0 pb-[56.25%]">
                 <Image
                   src={product.image}
                   alt={product.title}
