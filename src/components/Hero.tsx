@@ -36,14 +36,18 @@ export function Hero() {
           </div>
           <div className="w-full lg:w-1/2 px-4">
             <div className="relative lg:absolute lg:right-0 lg:top-0 h-[400px] lg:h-full w-full lg:w-1/2">
-              <Image
-                src="/img/hero/hero-parkettboden-dunkel.jpg"
-                alt="Hochwertiger Bodenbelag von Mueller Bodenbelaege"
-                fill
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="my-12 lg:my-0 rounded-3xl lg:rounded-none object-cover"
-                priority
-              />
+              <div className="relative w-full h-full">
+                <Image
+                  src="/img/hero/hero-main-parkett.jpg"
+                  alt="Hochwertiger Bodenbelag von Mueller Bodenbelaege"
+                  fill
+                  quality={90}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  className="my-12 lg:my-0 rounded-3xl lg:rounded-none object-cover"
+                  priority
+                  loading="eager"
+                />
+              </div>
             </div>
           </div>
         </div>
