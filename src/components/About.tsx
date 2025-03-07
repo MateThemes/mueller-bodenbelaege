@@ -5,7 +5,7 @@ export const About = () => {
   return (
     <section id="about" className="py-10 pt-20 lg:pt-32 bg-white dark:bg-gray-900 overflow-hidden">
       <div className="container mx-auto px-4">
-        <div className="py-16 px-8 md:px-16 bg-gray-50 dark:bg-gray-800 rounded-3xl">
+        <div className="py-16 px-6 md:px-12 lg:px-16 bg-gray-50 dark:bg-gray-800 rounded-3xl">
           <div className="flex flex-wrap -m-8">
             <div className="w-full md:w-1/2 p-8">
               <div className="md:max-w-sm">

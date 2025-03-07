@@ -4,48 +4,50 @@ import Link from 'next/link'
 export function Hero() {
   return (
     <section
-      className="relative bg-white dark:bg-gray-900 pt-20 pb-24 lg:py-40 overflow-hidden"
+      className="py-12   md:py-14 bg-white dark:bg-gray-900 overflow-hidden"
       role="banner"
       aria-label="Hauptbanner"
     >
-      <div className="container mx-auto px-4">
-        <div className="flex flex-wrap -mx-4">
-          <div className="w-full lg:w-1/2 px-4 flex items-center">
-            <div className="w-full text-center lg:text-left">
-              <div className="relative max-w-md mx-auto lg:mx-0">
-                <h1 className="mb-3 text-4xl lg:text-5xl font-bold font-heading text-gray-900 dark:text-white">
-                  <span>Der perfekte Boden für </span>
-                  <span className="text-brand dark:text-brand-light">Ihr Zuhause!</span>
-                </h1>
-              </div>
-              <div className="relative max-w-sm mx-auto lg:mx-0">
-                <p className="mb-6 text-gray-600 dark:text-gray-300 leading-loose" aria-label="Beschreibung">
-                  Professioneller Parkett- und Bodenleger aus München – maßgeschneiderte Lösungen für höchste Qualität, langlebige Böden und perfektes Handwerk.
-                </p>
-                <div className="flex flex-col lg:flex-row" role="group" aria-label="Aktionsbuttons">
-                  <Link
-                    href="/#about"
-                    className="focus:outline-none disabled:cursor-not-allowed disabled:opacity-75 aria-disabled:cursor-not-allowed aria-disabled:opacity-75 flex-shrink-0 font-medium rounded-md text-sm gap-x-2.5 px-3.5 py-2.5 shadow-sm text-white dark:text-gray-900 bg-brand hover:bg-brand-dark disabled:bg-brand aria-disabled:bg-brand dark:bg-brand-light dark:hover:bg-brand dark:disabled:bg-brand-light dark:aria-disabled:bg-brand-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand dark:focus-visible:outline-brand-light items-center mb-3 lg:mb-0 lg:mr-3 w-full lg:w-auto flex justify-center lg:justify-start"
-                    aria-label="Mehr über unsere Dienstleistungen erfahren"
-                  >
-                    Mehr erfahren
-                  </Link>
-                </div>
-              </div>
+      <div className="container px-4 mx-auto">
+        <div className="flex flex-wrap xl:items-center -mx-4">
+          <div className="w-full md:w-1/2 px-4 mb-16 md:mb-0">
+            <span className="inline-block py-1 px-3 mb-4 text-sm font-medium text-white dark:text-gray-900 bg-brand dark:bg-brand-light uppercase rounded-full">
+              Bodenleger München
+            </span>
+            <h1 className="mb-6 text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight text-gray-900 dark:text-white">
+              Der perfekte Boden für{' '}
+              <span className="text-brand dark:text-brand-light">Ihr Zuhause!</span>
+            </h1>
+            <p className="mb-8 text-lg md:text-xl text-gray-600 dark:text-gray-300 font-medium">
+              Professioneller Parkett- und Bodenleger aus München – maßgeschneiderte Lösungen für höchste Qualität, langlebige Böden und perfektes Handwerk.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <Link
+                href="/#about"
+                className="inline-flex items-center justify-center px-6 py-3 w-full md:w-auto text-sm font-medium text-white dark:text-gray-900 text-center bg-brand hover:bg-brand-dark dark:bg-brand-light dark:hover:bg-brand transition-colors duration-200 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand dark:focus:ring-brand-light"
+                aria-label="Mehr über unsere Dienstleistungen erfahren"
+              >
+                Mehr erfahren
+              </Link>
+              <Link
+                href="/kontakt"
+                className="inline-flex items-center justify-center px-6 py-3 w-full md:w-auto text-sm font-medium text-gray-900 dark:text-white text-center bg-gray-100 hover:bg-gray-200 dark:bg-gray-800 dark:hover:bg-gray-700 transition-colors duration-200 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 dark:focus:ring-gray-700 border border-gray-200 dark:border-gray-700"
+                aria-label="Kontaktieren Sie uns"
+              >
+                Kontakt
+              </Link>
             </div>
           </div>
-          <div className="w-full lg:w-1/2 px-4">
-            <div className="relative lg:absolute lg:right-0 lg:top-0 h-[400px] lg:h-full w-full lg:w-1/2">
-              <div className="relative w-full h-full">
+          <div className="w-full md:w-1/2 px-4">
+            <div className="relative mx-auto md:mr-0 max-w-max">
+              <div className="relative rounded-3xl overflow-hidden">
                 <Image
                   src="/img/hero/hero-main-parkett.jpg"
                   alt="Hochwertiger Bodenbelag von Mueller Bodenbelaege"
-                  fill
-                  quality={90}
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="my-12 lg:my-0 rounded-3xl lg:rounded-none object-cover"
+                  width={1200}
+                  height={800}
+                  className="w-full h-full object-cover"
                   priority
-                  loading="eager"
                 />
               </div>
             </div>
